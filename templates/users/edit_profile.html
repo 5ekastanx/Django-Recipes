@@ -1,0 +1,43 @@
+{% extends "recipes/base.html" %}
+{% load static %}
+{% block title %} Редактировать профиль {% endblock %}
+{% block links %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="feature">
+        <div class="container-xl">
+            <div class="container-sm">
+                <form method="post" action="{% url 'edit_profile' user.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3"> 
+                      <label for="exampleInputEmail1" for="{{ form.first_name.id_for_label }}" class="form-label">First name</label>
+                      {{ form.first_name }}
+                    </div>
+                    <div class="mb-3"> 
+                      <label for="exampleInputEmail1" for="{{ form.last_name.id_for_label }}" class="form-label">Last name</label>
+                      {{ form.last_name }}
+                    </div>
+                    <div class="mb-3"> 
+                      <label for="exampleInputEmail1" for="{{ form.image.id_for_label }}" class="form-label">Image</label>
+                      {{ form.image }}
+                    </div>
+                    <div class="mb-3"> 
+                        <label for="exampleInputEmail1" for="{{ form.username.id_for_label }}" class="form-label">Username</label>
+                        {{ form.username }}
+                      </div>
+                    <div class="mb-3"> 
+                        <label for="exampleInputEmail1" for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+                        {{ form.email }}
+                    </div>
+        
+                    <div class="mt-4 d-flex justify-content-evenly">
+
+                        <button type="submit" class="btn btn-primary ">Сохранить</button> 
+                      </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

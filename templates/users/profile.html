@@ -1,0 +1,57 @@
+{% extends "recipes/base.html" %}
+{% load static %}
+{% block title %} Profile {{ user.username }} {% endblock %}
+{% block links %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+<script type="text/javascript" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="feature">
+        <div class="container mt-5 d-flex justify-content-center">
+
+            <div style="width: 700px; border: 2px #2125295d solid;" class="card p-3">
+
+                <div class="d-flex align-items-center">
+
+                    <div  class="image">
+                        <img style="border-radius: 50%;" src="
+                        {% if user.image %}
+                            {{ user.image.url }}
+                        {% else %}
+                            {% static 'img/default_pfp.jpg' %}
+                        {% endif %}" width="155">
+
+                    </div>
+
+                    <div class="ml-3 w-100">
+                        <div style="width: auto; display: flex; justify-content: space-between; margin-left: 30px;">
+                            <h2>@{{ user.username }}</h2>
+                            <div class="button mt-2 d-flex flex-row align-items-center gap-3">
+                                <a href="{% url 'edit_profile' user.id %}">
+                                    <button class="btn btn-sm btn-secondary w-80 ml-2" >Edit</button>
+                                </a>                    
+                                <a href="{% url 'logout' %}">
+                                    <button class="btn btn-sm btn-secondary w-80 ml-2" >Logout</button>
+                                </a>
+                            </div>
+
+                        </div>
+                        
+                        <div class="p-2 mt-2 ms-4 bg-primary d-flex justify-content-between rounded text-white stats">
+                            <h4 class="mb-0 mt-0">{{ user.first_name }} {{ user.last_name }}</h4>
+                            <h4>{{ user.email }}</h4>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock %}

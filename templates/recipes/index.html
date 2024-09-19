@@ -1,0 +1,24 @@
+{% extends "recipes/base.html" %}
+{% load static %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+<div class="container container-main">
+    <h1>Список рецептов</h1>
+    <div class="recipes">
+        {% if recipes %}
+            {% for recipe in recipes %}
+                <div class="recipe">
+                    <h3 class="title"><a href="{% url 'recipe_detail' recipe.id %}" class="title_link">{{ recipe.title|title }}</a></h3>
+                    <p class="description">{{ recipe.description }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h3>Пока нет рецептов</h3>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

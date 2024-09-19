@@ -1,0 +1,42 @@
+{% extends "recipes/base.html" %}
+{% load static %}
+{% block title %} login {% endblock %}
+{% block links %}
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="feature">
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+
+            <div class="mb-3"> 
+                <label for="exampleInputEmail1" for="{{ form.username.id_for_label }}" class="form-label">Имя пользователя</label>
+                {{ form.username }}
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" for="{{ form.password.id_for_label }}" class="form-label">Пароль</label>
+                {{ form.password }}
+              </div>
+
+              <button type="submit" class="btn btn-primary mb-3">Далее</button> <br>
+              <a href="{% url 'registration' %}">Нет аккаунта? <br> Зарегестрироваться</a>
+
+            </form>
+            {% if form.non_field_errors or messages%}
+              {% if messages %}
+                {% for message in messages %}
+                  <div class="alert alert-success" role="alert">
+                    {{message}}
+                  </div>
+                {% endfor %}
+              {% else %}
+                <div class="alert alert-danger" role="alert">
+                  {{ form.non_field_errors }}
+                </div>
+              {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "recipes/base.html" %}
+{% load static %}
+
+{% block title %} Рецепт {{ recipe.title | lower }} {% endblock %}
+
+{% block content %}
+
+<div class="container container-main">
+    <div class="author-title">
+        <div class="title-container"><h1>{{ recipe.title | upper }}</h1></div>
+        <div class="author-container"><h3>{{ recipe.author }}</h3></div>
+    </div>
+
+    <div class="description-instructions">
+        <div class="description-container"><p> <b>Описание рецепта:</b><br>{{ recipe.description }}</p></div>
+        <div class="instructions-container"><p><b>Инструкция к приготовлению рецепта:</b><br>{{ recipe.instructions }}</p></div>
+    </div>
+    
+    <div style="float: left; width: 600px;">
+        <form method="post" style="display: flex;">
+            {% csrf_token %}
+            <div  class="image me-2">
+                <img style="border-radius: 50%;" src="
+                {% if user.image %}
+                    {{ user.image.url }}
+                {% else %}
+                    {% static 'img/default_pfp.jpg' %}
+                {% endif %}" width="40">
+
+            </div>
+            {{ comment_form.text }}
+            <button class="btn btn-success" type="submit">Отправить</button>
+        </form>
+    </div>
+    
+    <div class="comments">
+        {% if recipe.comments.all %}
+            {% for comment in recipe.comments.all %}
+                <div style="display: flex;">
+                    <div  class="image me-2">
+                        <img style="border-radius: 50%;" src="
+                        {% if comment.author.image %}
+                        {{ comment.author.image.url }}
+                        {% else %}
+                        {% static 'img/default_pfp.jpg' %}
+                        {% endif %}" width="40">
+                        
+                    </div>
+                    <div class="comment-author">
+
+                        <span><strong>{{ comment.author.username }}</strong> {{ comment.created_date }}</span>
+                        <p>{{ comment.text }}</p>
+                    </div>
+                    
+                </div>
+            {% endfor %}
+        {% else %}
+            <h3>Пока нет комментариев к этому рецепту, оставьте его первым</h3>
+        {% endif %}
+    
+    </div>
+</div>
+
+
+{% endblock %}
